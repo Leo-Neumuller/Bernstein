@@ -16,6 +16,16 @@ spec:
         app: poll
     spec:
       restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - poll
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: poll
         image: epitechcontent/t-dop-600-poll:k8s

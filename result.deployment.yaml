@@ -1,21 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: traefik-deployment
-  namespace: kube-public
+  name: result-deployment
   labels:
-    app: traefik
+    app: result
+  namespace: default
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: traefik
+      app: result
+  replicas: 2
   template:
     metadata:
       labels:
-        app: traefik
+        app: result
     spec:
-      serviceAccountName: traefik-account
       restartPolicy: Always
       affinity:
         podAntiAffinity:
@@ -25,16 +24,17 @@ spec:
               - key: app
                 operator: In
                 values:
-                - traefik
+                - result
             topologyKey: "kubernetes.io/hostname"
       containers:
-        - name: traefik
-          image: traefik:v2.10
-          args:
-            - --api.insecure
-            - --providers.kubernetesingress
-          ports:
-            - name: web
-              containerPort: 80
-            - name: dashboard
-              containerPort: 8080
+      - name: result
+        image: epitechcontent/t-dop-600-result:k8s
+        env:
+        - name: REDIS_HOST
+          value: ""
+        resources:
+          limits:
+            memory: "128Mi"
+        ports:
+          - name: result
+            containerPort: 80
