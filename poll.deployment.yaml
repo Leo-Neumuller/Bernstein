@@ -31,7 +31,7 @@ spec:
         image: epitechcontent/t-dop-600-poll:k8s
         env:
         - name: REDIS_HOST
-          value: ""
+          value: $(REDIS_SERVICE_SERVICE_HOST)
         resources:
           limits:
             memory: "128Mi"
