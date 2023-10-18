@@ -31,7 +31,10 @@ spec:
         image: epitechcontent/t-dop-600-poll:k8s
         env:
         - name: REDIS_HOST
-          value: $(REDIS_SERVICE_SERVICE_HOST)
+          valueFrom:
+            configMapKeyRef:
+              name: redis-configmap
+              key: REDIS_HOST
         resources:
           limits:
             memory: "128Mi"

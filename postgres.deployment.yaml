@@ -40,9 +40,15 @@ spec:
               name: postgres-configmap
               key: POSTGRES_DB
         - name: POSTGRES_HOST
-          value: $(POSTGRES_SERVICE_SERVICE_HOST)
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_HOST
         - name: POSTGRES_PORT
-          value: $(POSTGRES_SERVICE_SERVICE_PORT)
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_PORT
         ports:
           - name: postgres
             containerPort: 5432
