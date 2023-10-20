@@ -21,11 +21,20 @@ spec:
         image: epitechcontent/t-dop-600-worker:k8s
         env:
         - name: REDIS_HOST
-          value: $(REDIS_SERVICE_SERVICE_HOST)
+          valueFrom:
+            configMapKeyRef:
+              name: redis-configmap
+              key: REDIS_HOST
         - name: POSTGRES_HOST
-          value: $(POSTGRES_SERVICE_SERVICE_HOST)
-        - name: POSTGRES_PORT
-          value: $(POSTGRES_SERVICE_SERVICE_PORT)
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_HOST
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_HOST
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
