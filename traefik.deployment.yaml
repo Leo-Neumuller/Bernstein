@@ -29,7 +29,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
         - name: traefik
-          image: traefik:v2.10
+          image: traefik:v2.7
           args:
             - --api.insecure
             - --providers.kubernetesingress
